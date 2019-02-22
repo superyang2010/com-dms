@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.dms:com-dms-admin-dao:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
