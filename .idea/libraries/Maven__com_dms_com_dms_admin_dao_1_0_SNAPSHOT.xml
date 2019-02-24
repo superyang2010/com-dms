@@ -4,9 +4,11 @@
       <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/com-dms-admin/com-dms-admin-dao/com-dms-admin-dao-1.0-SNAPSHOT-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$PROJECT_DIR$/com-dms-admin/com-dms-admin-dao/com-dms-admin-dao-1.0-SNAPSHOT-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../maven_repository/com/dms/com-dms-admin-dao/1.0-SNAPSHOT/com-dms-admin-dao-1.0-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>

@@ -2,11 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="com-dms-admin-api" />
+        <module name="com-dms-admin-dao" />
+        <module name="com-dms-admin-repo" />
         <module name="com-dms-admin-service" />
         <module name="com-dms-admin-start" />
         <module name="com-dms-pub" />
@@ -19,9 +21,12 @@
       <module name="com-dms-admin-dao" target="1.8" />
       <module name="com-dms-admin-dao-jpa" target="1.8" />
       <module name="com-dms-admin-dao-mybatis" target="1.8" />
+      <module name="com-dms-admin-repo" target="1.8" />
+      <module name="com-dms-admin-repo-jpa" target="1.8" />
+      <module name="com-dms-admin-repo-mybatis" target="1.8" />
       <module name="com-dms-admin-service" target="1.8" />
       <module name="com-dms-admin-start" target="1.8" />
-      <module name="com-dms-pub" target="1.5" />
+      <module name="com-dms-pub" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.dms</groupId>
-            <artifactId>com-dms-admin-dao</artifactId>
+            <artifactId>com-dms-admin-repo</artifactId>
         </dependency>
     </dependencies>
 </project>

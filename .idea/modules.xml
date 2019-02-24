@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/com-dms.iml" filepath="$PROJECT_DIR$/.idea/com-dms.iml" />
       <module fileurl="file://$PROJECT_DIR$/com-dms-admin/com-dms-admin.iml" filepath="$PROJECT_DIR$/com-dms-admin/com-dms-admin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/com-dms-admin/com-dms-admin-api/com-dms-admin-api.iml" filepath="$PROJECT_DIR$/com-dms-admin/com-dms-admin-api/com-dms-admin-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com-dms-admin/com-dms-admin-repo/com-dms-admin-repo.iml" filepath="$PROJECT_DIR$/com-dms-admin/com-dms-admin-repo/com-dms-admin-repo.iml" />
       <module fileurl="file://$PROJECT_DIR$/com-dms-admin/com-dms-admin-service/com-dms-admin-service.iml" filepath="$PROJECT_DIR$/com-dms-admin/com-dms-admin-service/com-dms-admin-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/com-dms-admin/com-dms-admin-start/com-dms-admin-start.iml" filepath="$PROJECT_DIR$/com-dms-admin/com-dms-admin-start/com-dms-admin-start.iml" />
       <module fileurl="file://$PROJECT_DIR$/com-dms-pub/com-dms-pub.iml" filepath="$PROJECT_DIR$/com-dms-pub/com-dms-pub.iml" />

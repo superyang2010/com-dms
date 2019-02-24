@@ -3,7 +3,7 @@
 /**
  *
  * @author yangchao.
- * @date ${DATE}
+ * @date ${DATE} ${TIME}
  */
 public enum ${NAME} {
 }
