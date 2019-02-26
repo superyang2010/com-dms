@@ -1,6 +1,6 @@
 package com.dms.admin.controller;
 
-import com.dms.admin.domain.dto.LoginDTO;
+import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.LoginParam;
 import com.dms.admin.service.ILoginService;
 import com.dms.pub.base.BaseController;
@@ -30,10 +30,10 @@ public class LoginController extends BaseController {
     private ILoginService loginService;
 
     @PostMapping(value = "/login")
-    public Result<LoginDTO> login(@RequestBody() LoginParam loginParam, HttpSession session) {
+    public Result<UserDTO> login(@RequestBody() LoginParam loginParam, HttpSession session) {
         String sessionCaptcha = (String)session.getAttribute("SESSION_CAPTCHA");
         this.loginParamValidate(loginParam, sessionCaptcha);
-        LoginDTO loginDTO = this.loginService.login(loginParam);
+        UserDTO loginDTO = this.loginService.login(loginParam);
         session.setAttribute("LOGIN_USER_INFO", loginDTO);
         return Result.success("登陆成功", loginDTO);
     }

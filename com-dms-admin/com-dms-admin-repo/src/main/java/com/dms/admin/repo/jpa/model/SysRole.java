@@ -2,10 +2,7 @@ package com.dms.admin.repo.jpa.model;
 
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.google.common.collect.Sets;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,17 +13,24 @@ import java.util.Set;
  */
 @Entity
 @Table
-@Setter
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@Setter
+@ToString(callSuper = true)
 public class SysRole extends BaseModel {
 
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy="role")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="role", orphanRemoval = true)
     private Set<SysRoleMenuRela> roleMenuRelas = Sets.newHashSet();
 
     @OneToMany(mappedBy="role")
     private Set<SysUserRoleRela> userRoleRelas = Sets.newHashSet();
+
+    public void addUser(SysUser user) {
+        SysUserRoleRela rela = new SysUserRoleRela();
+        rela.setUser(user);
+        rela.setRole(this);
+        this.getUserRoleRelas().add(rela);
+    }
 }

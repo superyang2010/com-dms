@@ -2,10 +2,12 @@ package com.dms.admin.domain.dto;
 
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.dms.admin.repo.jpa.model.SysMenu;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,5 +26,17 @@ public class MenuDTO extends BaseModel {
 
     private Long parentId;
 
-    private Set<SysMenu> children = Sets.newHashSet();
+    private List<MenuDTO> children = Lists.newArrayList();
+
+    private List<MenuFuncDTO> menuFuncs = Lists.newArrayList();
+
+    public void addChildMenu(MenuDTO child) {
+        children = children == null ? Lists.newArrayList() : children;
+        children.add(child);
+    }
+
+    public void addMenuFunc(MenuDTO child) {
+        children = children == null ? Lists.newArrayList() : children;
+        children.add(child);
+    }
 }

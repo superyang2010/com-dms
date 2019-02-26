@@ -7,6 +7,8 @@ import com.dms.admin.repo.jpa.model.SysRole;
 import com.dms.admin.repo.jpa.model.SysUser;
 import com.dms.admin.repo.jpa.model.SysUserRoleRela;
 import com.dms.admin.service.IUserService;
+import com.dms.pub.enums.StatusEnum;
+import com.dms.pub.util.DateUtil;
 import com.dms.pub.util.ObjectUtil;
 import com.dms.pub.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,6 +66,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Throwable.class)
     public void remove(Long userId) {
-        userDao.delete(userId);
+        SysUser user = userDao.findOne(userId);
+        if (user != null) {
+            user.setStatus(StatusEnum.INVALID);
+            user.setGmtModified(DateUtil.getNow());
+            userDao.save(user);
+        }
     }
 }

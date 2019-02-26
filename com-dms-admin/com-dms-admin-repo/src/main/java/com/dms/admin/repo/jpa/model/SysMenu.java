@@ -3,8 +3,7 @@ package com.dms.admin.repo.jpa.model;
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,8 +14,9 @@ import java.util.Set;
  */
 @Entity
 @Table
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class SysMenu extends BaseModel {
 
     @Column(nullable = false, unique = true)
@@ -27,11 +27,11 @@ public class SysMenu extends BaseModel {
     private String url;
 
     @JsonIgnore
-    @ManyToOne(cascade=CascadeType.REFRESH)
+    @ManyToOne(cascade=CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name="PARENT_ID", updatable=false)
     private SysMenu parentMenu;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="parentMenu")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="parentMenu", orphanRemoval = true)
     @OrderBy("id")
     private Set<SysMenu> children = Sets.newHashSet();
 
@@ -39,7 +39,8 @@ public class SysMenu extends BaseModel {
     @OrderBy("id")
     private Set<SysRoleMenuRela> roleMenuRelas = Sets.newHashSet();
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="menu")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="menu", orphanRemoval = true)
     @OrderBy("id")
     private Set<SysMenuFunction> menuFunctions = Sets.newHashSet();
+
 }

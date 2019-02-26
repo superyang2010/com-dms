@@ -3,10 +3,7 @@ package com.dms.admin.repo.jpa.model;
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,9 +14,9 @@ import java.util.Set;
  */
 @Entity
 @Table
-@Setter
 @Getter
-@EqualsAndHashCode(callSuper = true)
+@Setter
+@ToString(callSuper = true)
 public class SysUser extends BaseModel {
 
     @Column(nullable = false, unique = true)

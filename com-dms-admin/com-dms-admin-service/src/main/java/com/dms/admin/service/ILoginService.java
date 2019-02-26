@@ -1,6 +1,6 @@
 package com.dms.admin.service;
 
-import com.dms.admin.domain.dto.LoginDTO;
+import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.LoginParam;
 
 /**
@@ -14,5 +14,5 @@ public interface ILoginService {
      * @param loginParam
      * @return
      */
-    LoginDTO login(LoginParam loginParam);
+    UserDTO login(LoginParam loginParam);
 }

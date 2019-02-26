@@ -1,8 +1,11 @@
 package com.dms.admin.domain.dto;
 
 import com.dms.admin.repo.jpa.base.BaseModel;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * @author yangchao.
@@ -13,4 +16,6 @@ import lombok.EqualsAndHashCode;
 public class RoleDTO extends BaseModel {
 
     private String name;
+
+    private List<MenuDTO> menus = Lists.newArrayList();
 }

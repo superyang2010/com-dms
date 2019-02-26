@@ -1,10 +1,7 @@
 package com.dms.admin.repo.jpa.model;
 
 import com.dms.pub.enums.StatusEnum;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,8 +12,9 @@ import java.util.Date;
  */
 @Entity
 @Table
-@Setter
 @Getter
+@Setter
+@ToString
 public class SysUserRoleRela {
 
     @Id
