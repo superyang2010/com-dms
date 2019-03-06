@@ -3,6 +3,11 @@
  */
 package com.dms.pub.common;
 
+
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 /**
  * 前端响应对象,参考：<a href="https://lark.alipay.com/fe.hemaos/rfc/002">[RFC-002] ajax response 规范</a><br/>
  * a、如果遇到以下 2 种情况，则需要返回 code 和 message：<br>
@@ -41,46 +46,40 @@ public class Result<T> {
     /**
      * 总共多少页,可选
      */
-    private Long pages;
+    private Integer pages;
     /**
      * 总共多少条记录,可选
      */
     private Long total;
 
+    public static <T> Result<List<T>> success(Page<T> pageData) {
+        return success(null, pageData);
+    }
+
+    public static <T> Result<List<T>> success(String msg, Page<T> pageData) {
+        return new Result<List<T>>().setSuccess(true).setMessage(msg).setData(pageData.getContent())
+                .setPageIndex(pageData.getNumber()).setPageSize(pageData.getSize())
+                .setTotal(pageData.getTotalElements()).setPages(pageData.getTotalPages());
+    }
+
     public static <T> Result<T> success(String msg) {
-        return build(null, msg, true, null, null);
+        return build(null, msg, true, null);
     }
 
     public static <T> Result<T> success(String msg, T data) {
-        return build(null, msg, true, data, null);
-    }
-
-    public static <T> Result<T> success(String msg, T data, PageParam pageParam) {
-        return build(null, msg, true, data, pageParam);
-    }
-
-    public static <T> Result<T> fail(String msg) {
-        return build(null, msg, false, null, null);
+        return build(null, msg, true, data);
     }
 
     public static <T> Result<T> fail(String code, String msg) {
-        return build(code, msg, false, null, null);
+        return build(code, msg, false, null);
     }
 
-    private static <T> Result<T> build(String code, String msg, boolean success, T data, PageParam pageParam) {
-        return new Result<T>().setSuccess(success).setCode(code).setMessage(msg).setData(data).buildPageParam(pageParam);
+    private static <T> Result<T> build(String code, String msg, boolean success, T data) {
+        return new Result<T>().setSuccess(success).setCode(code).setMessage(msg).setData(data);
     }
 
     public Result() {
 
-    }
-
-    public Result<T> buildPageParam(PageParam pageParam) {
-        if (pageParam != null) {
-            this.setPageIndex(pageParam.getPageIndex()).setPageSize(pageParam.getPageSize())
-                    .setTotal(pageParam.getTotal()).setPages(pageParam.getPages());
-        }
-        return this;
     }
 
     public Boolean isSuccess() {
@@ -119,11 +118,11 @@ public class Result<T> {
         return this;
     }
 
-    public Long getPages() {
+    public Integer getPages() {
         return pages;
     }
 
-    public Result<T> setPages(Long pages) {
+    public Result<T> setPages(Integer pages) {
         this.pages = pages;
         return this;
     }

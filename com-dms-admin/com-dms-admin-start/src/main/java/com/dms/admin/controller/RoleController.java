@@ -1,6 +1,8 @@
 package com.dms.admin.controller;
 
 import com.dms.admin.domain.dto.RoleDTO;
+import com.dms.admin.domain.dto.UserDTO;
+import com.dms.admin.domain.param.LoginParam;
 import com.dms.admin.repo.jpa.model.SysRole;
 import com.dms.admin.repo.jpa.model.SysUser;
 import com.dms.admin.service.IRoleService;
@@ -9,6 +11,8 @@ import com.dms.pub.base.BaseController;
 import com.dms.pub.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 登录

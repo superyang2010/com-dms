@@ -18,9 +18,9 @@ public class PageParam {
 	 /** 分页查询下结束位置 */
 	protected int end;
 	 /** 查询结果总记录数 */
-	protected long total;
+	protected int total;
 	 /** 总共页数 */
-	protected long pages;
+	protected int pages;
 
 	public PageParam() {
 
@@ -33,7 +33,7 @@ public class PageParam {
 		this.end = start + this.pageSize;
 	}
 
-	public PageParam(int pageIndex, int pageSize, long total) {
+	public PageParam(int pageIndex, int pageSize, int total) {
 		this(pageIndex, pageSize);
 		this.total = total;
 		this.pages = this.total / this.pageSize;
@@ -42,8 +42,8 @@ public class PageParam {
 		}
 	}
 
-	public PageParam(int pageIndex, int pageSize, long total, int start,
-                     int end, long pages) {
+	public PageParam(int pageIndex, int pageSize, int total, int start,
+                     int end, int pages) {
 		this.pageIndex = pageIndex;
 		this.pageSize = pageSize;
 		this.total = total;
@@ -76,7 +76,7 @@ public class PageParam {
 	/**
 	 * @return the total
 	 */
-	public long getTotal() {
+	public int getTotal() {
 		return total;
 	}
 
@@ -90,7 +90,7 @@ public class PageParam {
 	/**
 	 * @return the pages
 	 */
-	public long getPages() {
+	public int getPages() {
 		return pages;
 	}
 

@@ -5,7 +5,9 @@ import com.dms.admin.domain.param.LoginParam;
 import com.dms.admin.service.ILoginService;
 import com.dms.pub.base.BaseController;
 import com.dms.pub.common.Result;
+import com.dms.pub.enums.StatusEnum;
 import com.dms.pub.exception.ExceptionHandler;
+import com.dms.pub.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -35,7 +37,19 @@ public class LoginController extends BaseController {
         this.loginParamValidate(loginParam, sessionCaptcha);
         UserDTO loginDTO = this.loginService.login(loginParam);
         session.setAttribute("LOGIN_USER_INFO", loginDTO);
-        return Result.success("登陆成功", loginDTO);
+        UserDTO dto = ObjectUtil.shallowCopy(loginDTO, UserDTO.class);
+        maskKeyInfo(dto);
+        return Result.success("登陆成功", dto);
+    }
+
+    /**
+     * 隐藏关键信息
+     * @param loginDTO
+     */
+    private void maskKeyInfo(UserDTO loginDTO) {
+        loginDTO.setRoles(null);
+        loginDTO.setId(null);
+        loginDTO.setStatus(null);
     }
 
     @PostMapping(value = "/logout")

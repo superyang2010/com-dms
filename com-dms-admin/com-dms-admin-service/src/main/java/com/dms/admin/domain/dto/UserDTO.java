@@ -17,7 +17,5 @@ public class UserDTO extends BaseModel {
 
     private String username;
 
-    private String userpwd;
-
     private Set<RoleDTO> roles = Sets.newHashSet();
 }

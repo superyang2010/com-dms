@@ -59,13 +59,13 @@ public class LoginServiceImpl implements ILoginService {
         Example<SysUser> query = Example.of(user);
         List<SysUser> users = this.userDao.findAll(query);
         if (CollectionUtils.isEmpty(users)) {
-            ExceptionHandler.publish("DMS-LOGIN-00006", "用户名或密码错误");
+            ExceptionHandler.publish("SYS-LOGIN-00006", "账户或密码错误");
         }
         user = users.get(0);
         String dbPwd = user.getUserpwd();
         String securityPwd = SecurityUtil.md5Encrypt(username + "/dms/" + password);
         if (StringUtils.isEmpty(dbPwd) || !dbPwd.equals(securityPwd)) {
-            ExceptionHandler.publish("DMS-LOGIN-00006", "用户名或密码错误");
+            ExceptionHandler.publish("SYS-LOGIN-00006", "账户或密码错误");
         }
         log.info("{} 登录...ok", username);
         // 回填用户权限信息

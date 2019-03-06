@@ -22,20 +22,18 @@ public class GloabalExceptionHandlerConfig {
 	@ExceptionHandler(value = Throwable.class)
     public Result<String> defaultErrorHandler(HttpServletRequest req, Throwable e) throws Exception {
 		log.error("There are some errors occured.", e);
-		Result<String> respMsg = new Result<String>();
+		Result<String> respMsg = new Result<>();
 		if(e instanceof BusiException){
 			BusiException be = (BusiException)e;
-			respMsg.setCode(be.getErrorCode());
-			respMsg.setMessage(be.getErrorMsg());
+			respMsg = Result.fail(be.getErrorCode(), be.getErrorMsg());
 		} else {
-			respMsg.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 			Throwable throwable = e.getCause();
 			String errMsg = throwable.toString();
 			while (throwable != null) {
 				errMsg = throwable.toString();
 				throwable = throwable.getCause();
 			}
-			respMsg.setMessage(errMsg);
+			respMsg = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.toString(), errMsg);
 		}
 		
         return respMsg;
