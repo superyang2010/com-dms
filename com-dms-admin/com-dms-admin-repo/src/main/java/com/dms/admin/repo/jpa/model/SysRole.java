@@ -27,10 +27,10 @@ public class SysRole extends BaseModel {
     @OneToMany(mappedBy="role")
     private Set<SysUserRoleRela> userRoleRelas = Sets.newHashSet();
 
-    public void addUser(SysUser user) {
-        SysUserRoleRela rela = new SysUserRoleRela();
-        rela.setUser(user);
+    public void addMenu(SysMenu menu) {
+        SysRoleMenuRela rela = new SysRoleMenuRela();
+        rela.setMenu(menu);
         rela.setRole(this);
-        this.getUserRoleRelas().add(rela);
+        this.getRoleMenuRelas().add(rela);
     }
 }

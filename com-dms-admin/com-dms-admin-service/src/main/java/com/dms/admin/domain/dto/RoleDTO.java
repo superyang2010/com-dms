@@ -18,4 +18,9 @@ public class RoleDTO extends BaseModel {
     private String name;
 
     private List<MenuDTO> menus = Lists.newArrayList();
+
+    public void addMenu(MenuDTO menu) {
+        menus = menus == null ? Lists.newArrayList() : menus;
+        menus.add(menu);
+    }
 }

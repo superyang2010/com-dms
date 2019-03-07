@@ -28,12 +28,17 @@ public class GloabalExceptionHandlerConfig {
 			respMsg = Result.fail(be.getErrorCode(), be.getErrorMsg());
 		} else {
 			Throwable throwable = e.getCause();
-			String errMsg = throwable.toString();
-			while (throwable != null) {
-				errMsg = throwable.toString();
-				throwable = throwable.getCause();
-			}
-			respMsg = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.toString(), errMsg);
+			if (throwable != null) {
+                String errMsg = throwable.toString();
+                while (throwable != null) {
+                    errMsg = throwable.toString();
+                    throwable = throwable.getCause();
+                }
+                respMsg = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.toString(), errMsg);
+            } else {
+                respMsg = Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e.toString());
+            }
+
 		}
 		
         return respMsg;

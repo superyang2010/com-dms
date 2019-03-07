@@ -1,5 +1,6 @@
 package com.dms.admin.domain.param;
 
+import com.dms.admin.base.BaseParam;
 import com.dms.pub.common.PageParam;
 import com.dms.pub.enums.StatusEnum;
 import com.google.common.collect.Maps;
@@ -14,17 +15,13 @@ import java.util.Set;
  * @date 2019/3/6 19:31
  */
 @Data
-public class UserParam {
-
-    private Long id;
-
-    private String code;
+public class UserParam extends BaseParam {
 
     private String username;
 
     private String userpwd;
 
-    private StatusEnum status = StatusEnum.VALID;
+    private Integer status;
 
     private String notes;
 
@@ -38,14 +35,4 @@ public class UserParam {
      */
     private Set<Long> menuFuncIds = Sets.newHashSet();
 
-    /**
-     * 分页参数
-     */
-    private Integer pageIndex;
-    private Integer pageSize;
-
-    /**
-     * 排序参数: key - 属性名； value - ASC|DESC
-     */
-    private Map<String, String> sorts = Maps.newLinkedHashMap();
 }

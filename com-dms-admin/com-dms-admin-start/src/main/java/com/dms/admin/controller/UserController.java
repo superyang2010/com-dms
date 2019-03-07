@@ -1,12 +1,9 @@
 package com.dms.admin.controller;
 
 import com.dms.admin.domain.dto.UserDTO;
-import com.dms.admin.domain.param.LoginParam;
 import com.dms.admin.domain.param.UserParam;
-import com.dms.admin.repo.jpa.model.SysUser;
 import com.dms.admin.service.IUserService;
 import com.dms.pub.base.BaseController;
-import com.dms.pub.common.PageParam;
 import com.dms.pub.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 登录
@@ -38,8 +34,8 @@ public class UserController extends BaseController {
         return Result.success("", userDTO);
     }
 
-    @GetMapping(value = "/list")
-    public Result<List<UserDTO>> list(@RequestParam UserParam userParam) {
+    @PostMapping(value = "/list")
+    public Result<List<UserDTO>> list(@RequestBody UserParam userParam) {
         Page<UserDTO> users = userService.query(userParam);
         return Result.success("用户列表查询成功", users);
     }

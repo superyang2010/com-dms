@@ -16,11 +16,4 @@ public interface BaseEnum<E extends Enum<?>, T> {
      * @return
      */
     String getName();
-
-    /**
-     * 根据 value 获取对应的枚举对象
-     * @param value
-     * @return
-     */
-    E getByValue(T value);
 }

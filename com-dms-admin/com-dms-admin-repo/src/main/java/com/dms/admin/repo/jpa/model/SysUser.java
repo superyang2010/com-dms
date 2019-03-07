@@ -29,10 +29,6 @@ public class SysUser extends BaseModel {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="user", orphanRemoval = true)
     private Set<SysUserRoleRela> userRoleRelas = Sets.newHashSet();
 
-    @JsonIgnore
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="user", orphanRemoval = true)
-    private Set<SysUserMenuFuncRela> userMenuFuncRelas = Sets.newHashSet();
-
     public void addRole(SysRole role) {
         SysUserRoleRela rela = new SysUserRoleRela();
         rela.setUser(this);

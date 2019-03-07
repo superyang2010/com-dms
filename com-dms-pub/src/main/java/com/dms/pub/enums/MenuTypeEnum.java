@@ -7,16 +7,16 @@ import com.dms.pub.exception.BusiException;
  * @author yangchao.
  * @date 2019/2/20 15:19
  */
-public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
+public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, Integer> {
 
     /**
-     * 无效
+     * 普通菜单
      */
-    INVALID(0, "无效"),
+    MENU(1, "普通菜单"),
     /**
      * 有效
      */
-    VALID(1, "有效");
+    FUNCTION(2, "功能点");
 
     /**
      * 枚举值
@@ -27,7 +27,7 @@ public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
      */
     private String name;
 
-    StatusEnum(int value, String name) {
+    MenuTypeEnum(int value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -47,13 +47,13 @@ public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
         return name;
     }
 
-    public static StatusEnum getByValue(Integer value) {
-        StatusEnum[] enums = StatusEnum.values();
-        for(StatusEnum e : enums) {
+    public static MenuTypeEnum getByValue(Integer value) {
+        MenuTypeEnum[] enums = MenuTypeEnum.values();
+        for(MenuTypeEnum e : enums) {
             if(e.getValue().intValue() == value) {
                 return e;
             }
         }
-        throw new BusiException("未知的枚举值：" + value + ", 请核对 " + StatusEnum.class.getName());
+        throw new BusiException("未知的枚举值：" + value + ", 请核对 " + MenuTypeEnum.class.getName());
     }
 }

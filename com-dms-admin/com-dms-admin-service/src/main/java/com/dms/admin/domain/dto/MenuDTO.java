@@ -26,17 +26,13 @@ public class MenuDTO extends BaseModel {
 
     private Long parentId;
 
+    private Integer menuType;
+
     private List<MenuDTO> children = Lists.newArrayList();
 
-    private List<MenuFuncDTO> menuFuncs = Lists.newArrayList();
-
-    public void addChildMenu(MenuDTO child) {
+    public void addChild(MenuDTO child) {
         children = children == null ? Lists.newArrayList() : children;
-        children.add(child);
-    }
-
-    public void addMenuFunc(MenuDTO child) {
-        children = children == null ? Lists.newArrayList() : children;
+        child.setParentId(this.getId());
         children.add(child);
     }
 }
