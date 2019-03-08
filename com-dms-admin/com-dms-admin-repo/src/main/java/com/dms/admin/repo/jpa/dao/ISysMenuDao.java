@@ -2,7 +2,10 @@ package com.dms.admin.repo.jpa.dao;
 
 import com.dms.admin.repo.jpa.base.BaseRepository;
 import com.dms.admin.repo.jpa.model.SysMenu;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author yangchao.
@@ -10,4 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ISysMenuDao extends BaseRepository<SysMenu, Long> {
+
+    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.id=?1")
+    List<SysMenu> findByParentId(Long parentMenuId);
 }

@@ -16,6 +16,7 @@ import com.dms.pub.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,11 @@ public class UserServiceImpl extends BaseService implements IUserService {
         user.setUsername(userParam.getUsername());
         StatusEnum status = userParam.getStatus() != null ? StatusEnum.getByValue(userParam.getStatus()) : null;
         user.setStatus(status);
-        user.setGmtCreated(null);
-        Example<SysUser> param = Example.of(user);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("code", match -> match.contains())
+                .withMatcher("username", match -> match.contains())
+                .withIgnorePaths("gmtCreated");
+        Example<SysUser> param = Example.of(user, matcher);
         Pageable pageable = this.buildPageParam(userParam);
         Page<UserDTO> users = this.userDao.findAll(param, pageable).map(u -> ObjectUtil.shallowCopy(u, UserDTO.class));
         return users;

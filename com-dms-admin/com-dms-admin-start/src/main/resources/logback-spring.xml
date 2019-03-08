@@ -43,6 +43,9 @@
     <logger name="org.springframework.jdbc" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
     <logger name="com.dms" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>

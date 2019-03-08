@@ -1,10 +1,10 @@
 package com.dms.admin.service;
 
 import com.dms.admin.domain.dto.MenuDTO;
-import com.dms.admin.domain.dto.RoleDTO;
 import com.dms.admin.domain.param.MenuParam;
-import com.dms.admin.domain.param.RoleParam;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * @author yangchao.
@@ -37,4 +37,6 @@ public interface IMenuService {
      * @param menuId
      */
     void remove(Long menuId);
+
+    List<MenuDTO> queryByParentId(Long parentId);
 }

@@ -15,9 +15,11 @@ import com.dms.pub.enums.StatusEnum;
 import com.dms.pub.exception.ExceptionHandler;
 import com.dms.pub.util.DateUtil;
 import com.dms.pub.util.ObjectUtil;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author yangchao.
@@ -48,12 +52,14 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
         menu.setStatus(status);
         MenuTypeEnum menuType = menuParam.getMenuType() != null ? MenuTypeEnum.getByValue(menuParam.getMenuType()) : null;
         menu.setMenuType(menuType);
-        menu.setGmtCreated(null);
-        Example<SysMenu> param = Example.of(menu);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("code", match -> match.contains())
+                .withMatcher("name", match -> match.contains())
+                .withIgnorePaths("gmtCreated");
+        Example<SysMenu> param = Example.of(menu, matcher);
         Pageable pageable = this.buildPageParam(menuParam);
         Page<MenuDTO> menus = this.menuDao.findAll(param, pageable).map(u -> {
             MenuDTO menuDTO = ObjectUtil.shallowCopy(u, MenuDTO.class);
-            menuDTO.setMenuType(u.getMenuType().getValue());
             return menuDTO;
         });
         return menus;
@@ -127,5 +133,27 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
             rela.setStatus(StatusEnum.INVALID);
         });
         menuDao.save(menu);
+    }
+
+    @Override
+    public List<MenuDTO> queryByParentId(Long parentId) {
+        List<SysMenu> sysMenus = this.menuDao.findByParentId(parentId);
+        List<MenuDTO> menus = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(sysMenus)) {
+            menus = sysMenus.stream().map(menu -> buildMenuDTO(menu)).collect(Collectors.toList());
+        }
+        return menus;
+    }
+
+    private MenuDTO buildMenuDTO(SysMenu sysMenu) {
+        MenuDTO menu = ObjectUtil.shallowCopy(sysMenu, MenuDTO.class);
+        Set<SysMenu> children = sysMenu.getChildren();
+        if (!CollectionUtils.isEmpty(children)) {
+            children.forEach(m -> {
+                MenuDTO child = buildMenuDTO(m);
+                menu.addChild(child);
+            });
+        }
+        return menu;
     }
 }

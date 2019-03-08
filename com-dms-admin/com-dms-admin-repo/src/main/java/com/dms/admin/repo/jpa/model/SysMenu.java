@@ -28,9 +28,9 @@ public class SysMenu extends BaseModel {
 
     private String url;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable=false)
-    private MenuTypeEnum menuType = MenuTypeEnum.MENU;
+    private MenuTypeEnum menuType = MenuTypeEnum.M;
 
     @JsonIgnore
     @ManyToOne(cascade=CascadeType.REFRESH, fetch = FetchType.LAZY)

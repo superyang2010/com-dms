@@ -2,6 +2,7 @@ package com.dms.admin.domain.dto;
 
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.dms.admin.repo.jpa.model.SysMenu;
+import com.dms.pub.enums.MenuTypeEnum;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class MenuDTO extends BaseModel {
 
     private Long parentId;
 
-    private Integer menuType;
+    private MenuTypeEnum menuType;
 
     private List<MenuDTO> children = Lists.newArrayList();
 

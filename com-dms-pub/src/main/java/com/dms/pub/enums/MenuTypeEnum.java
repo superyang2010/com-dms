@@ -12,11 +12,11 @@ public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, Integer> {
     /**
      * 普通菜单
      */
-    MENU(1, "普通菜单"),
+    M(1, "M"),
     /**
      * 有效
      */
-    FUNCTION(2, "功能点");
+    F(2, "F");
 
     /**
      * 枚举值
@@ -34,7 +34,7 @@ public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, Integer> {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return name();
     }
 
     @Override

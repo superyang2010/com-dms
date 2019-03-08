@@ -17,6 +17,7 @@ import com.dms.pub.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,8 +46,11 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
         role.setName(roleParam.getName());
         StatusEnum status = roleParam.getStatus() != null ? StatusEnum.getByValue(roleParam.getStatus()) : null;
         role.setStatus(status);
-        role.setGmtCreated(null);
-        Example<SysRole> param = Example.of(role);
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("code", match -> match.contains())
+                .withMatcher("name", match -> match.contains())
+                .withIgnorePaths("gmtCreated");
+        Example<SysRole> param = Example.of(role, matcher);
         Pageable pageable = this.buildPageParam(roleParam);
         Page<RoleDTO> roles = this.roleDao.findAll(param, pageable).map(u -> ObjectUtil.shallowCopy(u, RoleDTO.class));
         return roles;

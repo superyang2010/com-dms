@@ -37,13 +37,19 @@ public class MenuController extends BaseController {
 
     @PostMapping(value = "/modify")
     public Result<MenuDTO> modify(@RequestBody MenuParam menuParam) {
-        MenuDTO role = menuService.modify(menuParam);
-        return Result.success("菜单修改成功", role);
+        MenuDTO menu = menuService.modify(menuParam);
+        return Result.success("菜单修改成功", menu);
     }
 
     @DeleteMapping(value = "/delete")
     public Result<MenuDTO> delete(@RequestParam Long menuId) {
         menuService.remove(menuId);
         return Result.success("菜单删除成功");
+    }
+
+    @GetMapping(value = "/query")
+    public Result<List<MenuDTO>> query(@RequestParam Long menuId) {
+        List<MenuDTO> menus = menuService.queryByParentId(menuId);
+        return Result.success("按层级查询菜单成功", menus);
     }
 }
