@@ -1,13 +1,9 @@
 package com.dms.admin.domain.param;
 
 import com.dms.admin.base.BaseParam;
-import com.dms.pub.common.PageParam;
-import com.dms.pub.enums.StatusEnum;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.Data;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -29,10 +25,5 @@ public class UserParam extends BaseParam {
      * 角色 id 列表
      */
     private Set<Long> roleIds = Sets.newHashSet();
-
-    /**
-     * 菜单功能点 id 列表
-     */
-    private Set<Long> menuFuncIds = Sets.newHashSet();
 
 }

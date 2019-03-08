@@ -12,11 +12,11 @@ public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
     /**
      * 无效
      */
-    INVALID(0, "无效"),
+    N(0, "N"),
     /**
      * 有效
      */
-    VALID(1, "有效");
+    Y(1, "Y");
 
     /**
      * 枚举值
@@ -34,7 +34,7 @@ public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return name;
     }
 
     @Override

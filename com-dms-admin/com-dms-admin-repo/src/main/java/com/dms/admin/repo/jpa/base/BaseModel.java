@@ -32,10 +32,9 @@ public abstract class BaseModel implements Serializable {
     @Column(nullable = false, unique = true, length = 32)
     protected String code;
 
-	/** 状态:1-有效;0-无效 **/
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable=false)
-    protected StatusEnum status = StatusEnum.VALID;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable=false, length = 8)
+    protected StatusEnum status = StatusEnum.Y;
 
 	/** 描述 **/
     @Column(length = 1024)

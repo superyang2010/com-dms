@@ -2,13 +2,10 @@ package com.dms.admin.service.impl;
 
 import com.dms.admin.base.BaseService;
 import com.dms.admin.domain.dto.MenuDTO;
-import com.dms.admin.domain.dto.RoleDTO;
 import com.dms.admin.domain.param.MenuParam;
 import com.dms.admin.repo.jpa.dao.ISysMenuDao;
 import com.dms.admin.repo.jpa.model.SysMenu;
-import com.dms.admin.repo.jpa.model.SysRole;
 import com.dms.admin.repo.jpa.model.SysRoleMenuRela;
-import com.dms.admin.repo.jpa.model.SysUserRoleRela;
 import com.dms.admin.service.IMenuService;
 import com.dms.pub.enums.MenuTypeEnum;
 import com.dms.pub.enums.StatusEnum;
@@ -126,11 +123,11 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
         if (!CollectionUtils.isEmpty(roleMenuRelas)) {
             ExceptionHandler.publish("DMS-ADMIN-MENU-0003", "请先解绑已经赋权的角色");
         }
-        menu.setStatus(StatusEnum.INVALID);
+        menu.setStatus(StatusEnum.N);
         menu.setGmtModified(DateUtil.getNow());
         menu.getRoleMenuRelas().forEach(rela -> {
             rela.setGmtModified(DateUtil.getNow());
-            rela.setStatus(StatusEnum.INVALID);
+            rela.setStatus(StatusEnum.N);
         });
         menuDao.save(menu);
     }

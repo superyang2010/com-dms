@@ -1,20 +1,14 @@
 package com.dms.admin.controller;
 
 import com.dms.admin.domain.dto.RoleDTO;
-import com.dms.admin.domain.dto.RoleDTO;
-import com.dms.admin.domain.param.LoginParam;
 import com.dms.admin.domain.param.RoleParam;
-import com.dms.admin.repo.jpa.model.SysRole;
-import com.dms.admin.repo.jpa.model.SysUser;
 import com.dms.admin.service.IRoleService;
-import com.dms.admin.service.IUserService;
 import com.dms.pub.base.BaseController;
 import com.dms.pub.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**

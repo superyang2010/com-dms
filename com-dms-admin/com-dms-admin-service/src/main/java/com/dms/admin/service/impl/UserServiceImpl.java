@@ -99,11 +99,11 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (user == null) {
             ExceptionHandler.publish("DMS-ADMIN-USER-0001", "非法参数");
         }
-        user.setStatus(StatusEnum.INVALID);
+        user.setStatus(StatusEnum.N);
         user.setGmtModified(DateUtil.getNow());
         user.getUserRoleRelas().forEach(rela -> {
             rela.setGmtModified(DateUtil.getNow());
-            rela.setStatus(StatusEnum.INVALID);
+            rela.setStatus(StatusEnum.N);
         });
         userDao.save(user);
     }

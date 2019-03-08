@@ -3,9 +3,10 @@ package com.dms.admin.repo.jpa.model;
 import com.dms.admin.repo.jpa.base.BaseModel;
 import com.dms.pub.enums.MenuTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class SysMenu extends BaseModel {
     private String url;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable=false)
+    @Column(nullable=false, length = 8)
     private MenuTypeEnum menuType = MenuTypeEnum.M;
 
     @JsonIgnore

@@ -1,11 +1,7 @@
 package com.dms.admin.domain.param;
 
 import com.dms.admin.base.BaseParam;
-import com.dms.pub.enums.MenuTypeEnum;
-import com.google.common.collect.Sets;
 import lombok.Data;
-
-import java.util.Set;
 
 /**
  * @author yangchao.

@@ -2,12 +2,10 @@ package com.dms.admin.service.impl;
 
 import com.dms.admin.base.BaseService;
 import com.dms.admin.domain.dto.RoleDTO;
-import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.RoleParam;
 import com.dms.admin.repo.jpa.dao.ISysRoleDao;
 import com.dms.admin.repo.jpa.model.SysMenu;
 import com.dms.admin.repo.jpa.model.SysRole;
-import com.dms.admin.repo.jpa.model.SysUser;
 import com.dms.admin.repo.jpa.model.SysUserRoleRela;
 import com.dms.admin.service.IRoleService;
 import com.dms.pub.enums.StatusEnum;
@@ -103,11 +101,11 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
         if (!CollectionUtils.isEmpty(userRoleRelas)) {
             ExceptionHandler.publish("DMS-ADMIN-ROLE-0002", "请先解绑已经赋权的用户");
         }
-        role.setStatus(StatusEnum.INVALID);
+        role.setStatus(StatusEnum.N);
         role.setGmtModified(DateUtil.getNow());
         role.getRoleMenuRelas().forEach(rela -> {
             rela.setGmtModified(DateUtil.getNow());
-            rela.setStatus(StatusEnum.INVALID);
+            rela.setStatus(StatusEnum.N);
         });
         roleDao.save(role);
     }

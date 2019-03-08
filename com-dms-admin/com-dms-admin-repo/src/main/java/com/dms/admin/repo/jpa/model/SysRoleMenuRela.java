@@ -1,7 +1,9 @@
 package com.dms.admin.repo.jpa.model;
 
 import com.dms.pub.enums.StatusEnum;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,10 +24,9 @@ public class SysRoleMenuRela {
     @Column(nullable = false, unique = true)
     private Long id;
 
-    /** 状态:1-有效;0-无效 **/
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable=false)
-    private StatusEnum status = StatusEnum.VALID;
+    private StatusEnum status = StatusEnum.Y;
 
     /** 创建时间 **/
     @Temporal(TemporalType.TIMESTAMP)
