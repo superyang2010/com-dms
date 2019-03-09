@@ -1,6 +1,7 @@
 package com.dms.admin.service.impl;
 
 import com.dms.admin.base.BaseService;
+import com.dms.admin.domain.dto.RoleDTO;
 import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.UserParam;
 import com.dms.admin.repo.jpa.dao.ISysRoleDao;
@@ -22,8 +23,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author yangchao.
@@ -52,7 +57,12 @@ public class UserServiceImpl extends BaseService implements IUserService {
                 .withIgnorePaths("gmtCreated");
         Example<SysUser> param = Example.of(user, matcher);
         Pageable pageable = this.buildPageParam(userParam);
-        Page<UserDTO> users = this.userDao.findAll(param, pageable).map(u -> ObjectUtil.shallowCopy(u, UserDTO.class));
+        Page<UserDTO> users = this.userDao.findAll(param, pageable).map(u -> {
+            UserDTO dto = ObjectUtil.shallowCopy(u, UserDTO.class);
+            List<RoleDTO> roles = u.getUserRoleRelas().stream().map(rela -> ObjectUtil.shallowCopy(rela.getRole(), RoleDTO.class)).collect(Collectors.toList());
+            dto.setRoles(roles);
+            return dto;
+        });
         return users;
     }
 

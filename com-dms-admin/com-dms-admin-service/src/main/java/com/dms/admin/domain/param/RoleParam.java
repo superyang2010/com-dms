@@ -15,8 +15,6 @@ public class RoleParam extends BaseParam {
 
     private String name;
 
-    private Integer status;
-
     private String notes;
 
     /**

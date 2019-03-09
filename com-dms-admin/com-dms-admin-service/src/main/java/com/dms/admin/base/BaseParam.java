@@ -16,6 +16,8 @@ public class BaseParam {
 
     protected String code;
 
+    protected String status;
+
     /**
      * 分页参数
      */
@@ -26,4 +28,6 @@ public class BaseParam {
      * 排序参数: key - 属性名； value - ASC|DESC
      */
     protected Map<String, String> sorts = Maps.newLinkedHashMap();
+
+
 }

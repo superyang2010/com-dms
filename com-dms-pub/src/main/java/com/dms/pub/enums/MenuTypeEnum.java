@@ -7,29 +7,29 @@ import com.dms.pub.exception.BusiException;
  * @author yangchao.
  * @date 2019/2/20 15:19
  */
-public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, Integer> {
+public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, String> {
 
     /**
      * 普通菜单
      */
-    M(1, "M"),
+    M("M", "普通菜单"),
     /**
-     * 有效
+     * 菜单功能点
      */
-    F(2, "F");
+    F("F", "菜单功能点");
 
     /**
      * 枚举值
      */
-    private Integer value;
+    private String value;
     /**
      * 枚举名称
      */
-    private String name;
+    private String desc;
 
-    MenuTypeEnum(int value, String name) {
+    MenuTypeEnum(String value, String desc) {
         this.value = value;
-        this.name = name;
+        this.desc = desc;
     }
 
     @Override
@@ -38,19 +38,19 @@ public enum MenuTypeEnum implements BaseEnum<MenuTypeEnum, Integer> {
     }
 
     @Override
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getDesc() {
+        return desc;
     }
 
-    public static MenuTypeEnum getByValue(Integer value) {
+    public static MenuTypeEnum getByValue(String value) {
         MenuTypeEnum[] enums = MenuTypeEnum.values();
         for(MenuTypeEnum e : enums) {
-            if(e.getValue().intValue() == value) {
+            if(e.getValue().equalsIgnoreCase(value)) {
                 return e;
             }
         }

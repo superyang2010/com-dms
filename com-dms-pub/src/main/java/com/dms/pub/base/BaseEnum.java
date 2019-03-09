@@ -15,5 +15,5 @@ public interface BaseEnum<E extends Enum<?>, T> {
      * 获取显示值
      * @return
      */
-    String getName();
+    String getDesc();
 }

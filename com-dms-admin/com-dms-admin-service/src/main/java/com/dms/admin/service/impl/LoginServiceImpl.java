@@ -74,13 +74,13 @@ public class LoginServiceImpl implements ILoginService {
         UserDTO userDTO = ObjectUtil.shallowCopy(user, UserDTO.class);
         // 通过懒加载获取用户拥有的角色
         List<RoleDTO> roles = user.getUserRoleRelas().stream()
-                .filter(role -> role.getStatus().getValue().intValue() == StatusEnum.Y.getValue())
+                .filter(role -> role.getStatus().getValue().equalsIgnoreCase(StatusEnum.Y.getValue()))
                 .map(userRoleRela -> {
                     SysRole role = userRoleRela.getRole();
                     RoleDTO roleDTO = ObjectUtil.shallowCopy(role, RoleDTO.class);
                     // 角色对应的所有菜单
                     List<MenuDTO> menus = role.getRoleMenuRelas().stream()
-                            .filter(roleMenuRela -> roleMenuRela.getMenu().getStatus().getValue().intValue() == StatusEnum.Y.getValue())
+                            .filter(roleMenuRela -> roleMenuRela.getMenu().getStatus().getValue().equalsIgnoreCase(StatusEnum.Y.getValue()))
                             .map(roleMenuRela -> {
                                 SysMenu menu = roleMenuRela.getMenu();
                                 SysMenu parentMenu = menu.getParentMenu();

@@ -12,8 +12,6 @@ public class MenuParam extends BaseParam {
 
     private String name;
 
-    private Integer status;
-
     private String notes;
 
     private Long parentId;
@@ -22,6 +20,6 @@ public class MenuParam extends BaseParam {
 
     private String url;
 
-    private Integer menuType;
+    private String menuType;
 
 }

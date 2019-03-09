@@ -17,8 +17,6 @@ public class UserParam extends BaseParam {
 
     private String userpwd;
 
-    private Integer status;
-
     private String notes;
 
     /**

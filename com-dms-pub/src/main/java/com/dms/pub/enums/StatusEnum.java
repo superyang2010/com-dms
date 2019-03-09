@@ -7,50 +7,50 @@ import com.dms.pub.exception.BusiException;
  * @author yangchao.
  * @date 2019/2/20 15:19
  */
-public enum StatusEnum implements BaseEnum<StatusEnum, Integer> {
+public enum StatusEnum implements BaseEnum<StatusEnum, String> {
 
     /**
      * 无效
      */
-    N(0, "N"),
+    N("N", "无效"),
     /**
      * 有效
      */
-    Y(1, "Y");
+    Y("Y", "有效");
 
     /**
      * 枚举值
      */
-    private Integer value;
+    private String value;
     /**
      * 枚举名称
      */
-    private String name;
+    private String desc;
 
-    StatusEnum(int value, String name) {
+    StatusEnum(String value, String desc) {
         this.value = value;
-        this.name = name;
+        this.desc = desc;
     }
 
     @Override
     public String toString() {
-        return name;
-    }
-
-    @Override
-    public Integer getValue() {
         return value;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 
-    public static StatusEnum getByValue(Integer value) {
+    @Override
+    public String getDesc() {
+        return desc;
+    }
+
+    public static StatusEnum getByValue(String value) {
         StatusEnum[] enums = StatusEnum.values();
         for(StatusEnum e : enums) {
-            if(e.getValue().intValue() == value) {
+            if(e.getValue().equalsIgnoreCase(value)) {
                 return e;
             }
         }
