@@ -48,7 +48,7 @@ public class MenuController extends BaseController {
     }
 
     @GetMapping(value = "/query")
-    public Result<List<MenuDTO>> query(@RequestParam Long menuId) {
+    public Result<List<MenuDTO>> query(@RequestParam(required = false) Long menuId) {
         List<MenuDTO> menus = menuService.queryByParentId(menuId);
         return Result.success("按层级查询菜单成功", menus);
     }

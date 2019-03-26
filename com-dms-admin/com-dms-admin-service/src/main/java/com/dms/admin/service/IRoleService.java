@@ -31,8 +31,8 @@ public interface IRoleService {
     RoleDTO modify(RoleParam roleParam);
 
     /**
-     * 查询
-     * @param roleId
+     * 删除
+     * @param roleParam
      */
-    void remove(Long roleId);
+    void remove(RoleParam roleParam);
 }

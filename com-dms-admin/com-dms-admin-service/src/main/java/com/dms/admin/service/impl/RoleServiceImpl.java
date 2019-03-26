@@ -2,6 +2,7 @@ package com.dms.admin.service.impl;
 
 import com.dms.admin.base.BaseService;
 import com.dms.admin.domain.dto.RoleDTO;
+import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.RoleParam;
 import com.dms.admin.repo.jpa.dao.ISysRoleDao;
 import com.dms.admin.repo.jpa.model.SysMenu;
@@ -23,7 +24,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author yangchao.
@@ -50,7 +53,13 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
                 .withIgnorePaths("gmtCreated");
         Example<SysRole> param = Example.of(role, matcher);
         Pageable pageable = this.buildPageParam(roleParam);
-        Page<RoleDTO> roles = this.roleDao.findAll(param, pageable).map(u -> ObjectUtil.shallowCopy(u, RoleDTO.class));
+        Page<RoleDTO> roles = this.roleDao.findAll(param, pageable).map(r -> {
+            RoleDTO roleDTO = ObjectUtil.shallowCopy(r, RoleDTO.class);
+            List<UserDTO> users = r.getUserRoleRelas().stream().map(rela -> ObjectUtil.shallowCopy(rela.getUser(), UserDTO.class))
+                    .collect(Collectors.toList());
+            roleDTO.setUsers(users);
+            return roleDTO;
+        });
         return roles;
     }
 
@@ -80,6 +89,7 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
             ExceptionHandler.publish("DMS-ADMIN-ROLE-0001", "非法参数");
         }
         role.setName(roleParam.getName());
+        role.setGmtModified(DateUtil.getNow());
         role.setNotes(roleParam.getNotes());
         menuIds.stream().forEach(menuId -> {
             SysMenu menu = new SysMenu();
@@ -92,8 +102,8 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Throwable.class)
-    public void remove(Long roleId) {
-        SysRole role = roleDao.findOne(roleId);
+    public void remove(RoleParam roleParam) {
+        SysRole role = roleDao.findOne(roleParam.getId());
         if (role == null) {
             ExceptionHandler.publish("DMS-ADMIN-ROLE-0001", "非法参数");
         }
@@ -101,7 +111,7 @@ public class RoleServiceImpl extends BaseService implements IRoleService {
         if (!CollectionUtils.isEmpty(userRoleRelas)) {
             ExceptionHandler.publish("DMS-ADMIN-ROLE-0002", "请先解绑已经赋权的用户");
         }
-        role.setStatus(StatusEnum.N);
+        role.setStatus(roleParam.isEnabled() ? StatusEnum.Y : StatusEnum.N);
         role.setGmtModified(DateUtil.getNow());
         role.getRoleMenuRelas().forEach(rela -> {
             rela.setGmtModified(DateUtil.getNow());

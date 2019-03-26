@@ -17,6 +17,8 @@ public class RoleParam extends BaseParam {
 
     private String notes;
 
+    private boolean enabled;
+
     /**
      * 菜单 id 列表
      */

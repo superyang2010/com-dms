@@ -2,9 +2,12 @@ package com.dms.admin.service.impl;
 
 import com.dms.admin.base.BaseService;
 import com.dms.admin.domain.dto.MenuDTO;
+import com.dms.admin.domain.dto.RoleDTO;
+import com.dms.admin.domain.dto.UserDTO;
 import com.dms.admin.domain.param.MenuParam;
 import com.dms.admin.repo.jpa.dao.ISysMenuDao;
 import com.dms.admin.repo.jpa.model.SysMenu;
+import com.dms.admin.repo.jpa.model.SysRole;
 import com.dms.admin.repo.jpa.model.SysRoleMenuRela;
 import com.dms.admin.service.IMenuService;
 import com.dms.pub.enums.MenuTypeEnum;
@@ -74,12 +77,19 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
             }
         }
         SysMenu menu = new SysMenu();
+        menu.getRoleMenuRelas().clear();
+        menuParam.getRoleIds().stream().forEach(id -> {
+            SysRole role = new SysRole();
+            role.setId(id);
+            menu.addRole(role);
+        });
         menu.setCode(menuParam.getCode());
         menu.setName(menuParam.getName());
         menu.setIcon(menuParam.getIcon());
         menu.setUrl(menuParam.getUrl());
         MenuTypeEnum menuType = menuParam.getMenuType() != null ? MenuTypeEnum.getByValue(menuParam.getMenuType()) : null;
         menu.setMenuType(menuType);
+        menu.setStatus(StatusEnum.Y.getValue().equalsIgnoreCase(menuParam.getStatus()) ? StatusEnum.Y : StatusEnum.N);
         menu.setNotes(menuParam.getNotes());
         menu.setParentMenu(parentMenu);
         SysMenu menu1 = menuDao.save(menu);
@@ -101,13 +111,17 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
         if (menu == null) {
             ExceptionHandler.publish("DMS-ADMIN-MENU-0002", "非法参数");
         }
+        menu.getRoleMenuRelas().clear();
+        menuParam.getRoleIds().stream().forEach(id -> {
+            SysRole role = new SysRole();
+            role.setId(id);
+            menu.addRole(role);
+        });
         menu.setName(menuParam.getName());
         menu.setIcon(menuParam.getIcon());
         menu.setUrl(menuParam.getUrl());
-        MenuTypeEnum menuType = menuParam.getMenuType() != null ? MenuTypeEnum.getByValue(menuParam.getMenuType()) : null;
-        menu.setMenuType(menuType);
+        menu.setStatus(StatusEnum.Y.getValue().equalsIgnoreCase(menuParam.getStatus()) ? StatusEnum.Y : StatusEnum.N);
         menu.setNotes(menuParam.getNotes());
-        menu.setParentMenu(parentMenu);
         SysMenu menu1 = menuDao.save(menu);
         return ObjectUtil.shallowCopy(menu1, MenuDTO.class);
     }
@@ -134,7 +148,7 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
 
     @Override
     public List<MenuDTO> queryByParentId(Long parentId) {
-        List<SysMenu> sysMenus = this.menuDao.findByParentId(parentId);
+        List<SysMenu> sysMenus = parentId == null ? this.menuDao.findALLWithChildren() : this.menuDao.findMenuWithChildrenByParentId(parentId);
         List<MenuDTO> menus = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(sysMenus)) {
             menus = sysMenus.stream().map(menu -> buildMenuDTO(menu)).collect(Collectors.toList());
@@ -144,6 +158,13 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
 
     private MenuDTO buildMenuDTO(SysMenu sysMenu) {
         MenuDTO menu = ObjectUtil.shallowCopy(sysMenu, MenuDTO.class);
+        Set<SysRoleMenuRela> roleMenuRelas = sysMenu.getRoleMenuRelas();
+        if(!CollectionUtils.isEmpty(roleMenuRelas)) {
+            List<RoleDTO> roles = roleMenuRelas.stream()
+                    .map(rela -> ObjectUtil.shallowCopy(rela.getRole(), RoleDTO.class))
+                    .collect(Collectors.toList());
+            menu.setRoles(roles);
+        }
         Set<SysMenu> children = sysMenu.getChildren();
         if (!CollectionUtils.isEmpty(children)) {
             children.forEach(m -> {
@@ -153,4 +174,5 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
         }
         return menu;
     }
+
 }

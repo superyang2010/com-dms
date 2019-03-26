@@ -92,7 +92,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (user == null) {
             ExceptionHandler.publish("DMS-ADMIN-USER-0001", "非法参数");
         }
+        user.setGmtModified(DateUtil.getNow());
         user.setNotes(userParam.getNotes());
+        user.getUserRoleRelas().clear();
         roleIds.stream().forEach(roleId -> {
             SysRole role = new SysRole();
             role.setId(roleId);
@@ -104,12 +106,12 @@ public class UserServiceImpl extends BaseService implements IUserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Throwable.class)
-    public void remove(Long userId) {
-        SysUser user = userDao.findOne(userId);
+    public void remove(UserParam userParam) {
+        SysUser user = userDao.findOne(userParam.getId());
         if (user == null) {
             ExceptionHandler.publish("DMS-ADMIN-USER-0001", "非法参数");
         }
-        user.setStatus(StatusEnum.N);
+        user.setStatus(userParam.isEnabled() ? StatusEnum.Y : StatusEnum.N);
         user.setGmtModified(DateUtil.getNow());
         user.getUserRoleRelas().forEach(rela -> {
             rela.setGmtModified(DateUtil.getNow());

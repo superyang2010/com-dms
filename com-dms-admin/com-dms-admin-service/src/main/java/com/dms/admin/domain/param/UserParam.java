@@ -19,6 +19,8 @@ public class UserParam extends BaseParam {
 
     private String notes;
 
+    private boolean enabled;
+
     /**
      * 角色 id 列表
      */

@@ -23,7 +23,7 @@ public class SysRole extends BaseModel {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="role", orphanRemoval = true)
+    @OneToMany(mappedBy="role")
     private Set<SysRoleMenuRela> roleMenuRelas = Sets.newHashSet();
 
     @OneToMany(mappedBy="role")

@@ -28,9 +28,24 @@ public class MenuDTO extends BaseModel {
 
     private List<MenuDTO> children = Lists.newArrayList();
 
+    private List<RoleDTO> roles = Lists.newArrayList();
+
     public void addChild(MenuDTO child) {
         children = children == null ? Lists.newArrayList() : children;
         child.setParentId(this.getId());
         children.add(child);
+    }
+
+    public void addRole(RoleDTO role) {
+        roles = roles == null ? Lists.newArrayList() : roles;
+        roles.add(role);
+    }
+
+    public String getKey() {
+        return String.valueOf(id);
+    }
+
+    public String getTitle() {
+        return name;
     }
 }

@@ -42,7 +42,7 @@ public class SysMenu extends BaseModel {
     @OrderBy("id")
     private Set<SysMenu> children = Sets.newHashSet();
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="menu")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="menu", orphanRemoval = true)
     @OrderBy("id")
     private Set<SysRoleMenuRela> roleMenuRelas = Sets.newHashSet();
 
@@ -50,6 +50,14 @@ public class SysMenu extends BaseModel {
         children = children == null ? Sets.newHashSet() : children;
         child.setParentMenu(this);
         children.add(child);
+    }
+
+    public void addRole(SysRole role) {
+        roleMenuRelas = roleMenuRelas == null ? Sets.newHashSet() : roleMenuRelas;
+        SysRoleMenuRela rela = new SysRoleMenuRela();
+        rela.setRole(role);
+        rela.setMenu(this);
+        roleMenuRelas.add(rela);
     }
 
 }

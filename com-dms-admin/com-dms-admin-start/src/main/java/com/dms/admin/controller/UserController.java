@@ -53,8 +53,8 @@ public class UserController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete")
-    public Result<UserDTO> delete(@RequestParam Long userId) {
-        userService.remove(userId);
+    public Result<UserDTO> delete(@RequestBody UserParam userParam) {
+        userService.remove(userParam);
         return Result.success("用户删除成功");
     }
 

@@ -43,8 +43,8 @@ public class RoleController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete")
-    public Result<RoleDTO> delete(@RequestParam Long userId) {
-        roleService.remove(userId);
+    public Result<RoleDTO> delete(@RequestBody RoleParam roleParam) {
+        roleService.remove(roleParam);
         return Result.success("角色删除成功");
     }
 

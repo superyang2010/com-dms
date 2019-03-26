@@ -33,7 +33,7 @@ public interface IUserService {
 
     /**
      * 删除
-     * @param userId
+     * @param userParam
      */
-    void remove(Long userId);
+    void remove(UserParam userParam);
 }
