@@ -14,12 +14,12 @@ import java.util.List;
 @Repository
 public interface ISysMenuDao extends BaseRepository<SysMenu, Long> {
 
-    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.parentMenu.id is null")
+    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.parentMenu.id is null ORDER BY menu.id ASC")
     List<SysMenu> findALLWithChildren();
 
-    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.parentMenu.id=?1")
+    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.parentMenu.id=?1  ORDER BY menu.id ASC")
     List<SysMenu> findMenuWithChildrenByParentId(Long parentMenuId);
 
-    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.id=?1")
+    @Query("SELECT DISTINCT menu FROM SysMenu menu LEFT JOIN FETCH menu.children WHERE menu.id=?1  ORDER BY menu.id")
     List<SysMenu> findMenuWithChildrenById(Long parentMenuId);
 }

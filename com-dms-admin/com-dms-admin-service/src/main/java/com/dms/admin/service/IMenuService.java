@@ -2,6 +2,7 @@ package com.dms.admin.service;
 
 import com.dms.admin.domain.dto.MenuDTO;
 import com.dms.admin.domain.param.MenuParam;
+import com.dms.admin.repo.jpa.model.SysMenu;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -39,4 +40,11 @@ public interface IMenuService {
     void remove(Long menuId);
 
     List<MenuDTO> queryByParentId(Long parentId);
+
+    /**
+     * 创建
+     * @param menuParam
+     * @return
+     */
+    List<SysMenu> save(List<SysMenu> menus);
 }

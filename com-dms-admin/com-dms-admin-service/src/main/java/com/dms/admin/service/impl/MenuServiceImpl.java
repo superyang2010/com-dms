@@ -175,4 +175,9 @@ public class MenuServiceImpl extends BaseService implements IMenuService {
         return menu;
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor=Throwable.class)
+    public List<SysMenu> save(List<SysMenu> sysMenus) {
+        return this.menuDao.save(sysMenus);
+    }
 }
